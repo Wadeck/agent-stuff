@@ -11,9 +11,10 @@ metadata:
         - Approval
         - evidence
         - Approval2
+        - always-execute-job
     - name: Stage
       jobs:
-        - job
+        - also-always-execute
 jobs:
   First:
     steps:
@@ -39,12 +40,17 @@ jobs:
     with:
       disallowLaunchByUser: false
       notifyAllEligibleUsers: false
-  job:
-    needs:
-      - evidence
-      - Approval2
+  always-execute-job:
     steps:
-      - name: Say hello
+      - run: echo "hello world again"
         uses: docker://golang:1.20.3-alpine3.17
+        name: Always execute
         shell: sh
-        run: echo "hello world"
+  also-always-execute:
+    needs:
+      - always-execute-job
+    steps:
+      - run: echo "hello world"
+        uses: docker://golang:1.20.3-alpine3.17
+        name: Say hello
+        shell: sh
