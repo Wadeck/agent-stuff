@@ -12,6 +12,7 @@ metadata:
         - evidence
         - Approval2
         - always-execute-job
+        - terminal-job
     - name: Stage
       jobs:
         - also-always-execute
@@ -47,10 +48,21 @@ jobs:
         name: Always execute
         shell: sh
   also-always-execute:
-    needs:
-      - always-execute-job
+    needs: terminal-job
     steps:
-      - run: echo "hello world"
+      - run: echo "hello world2"
         uses: docker://golang:1.20.3-alpine3.17
         name: Say hello
+        shell: sh
+  terminal-job:
+    needs:
+      - evidence
+      - Approval2
+      - always-execute-job
+    outputs:
+      t: a
+    steps:
+      - name: final-step
+        uses: docker://alpine:latest
+        run: echo "hello world"
         shell: sh
