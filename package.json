@@ -1,0 +1,16 @@
+{
+  "name": "vulnerable-app",
+  "version": "1.0.0",
+  "description": "Basic Express app with intentionally outdated dependencies for CVE scanner testing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "0.19.0",
+    "express": "4.17.0",
+    "lodash": "4.17.4",
+    "minimist": "1.2.0",
+    "serialize-javascript": "1.7.0"
+  }
+}
